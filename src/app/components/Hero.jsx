@@ -336,7 +336,7 @@ const Hero = () => {
               Hire Me <FiArrowRight />
             </motion.a>
             <motion.a
-              href="#"
+              href="resume/Suhaib_Ali_Resume (1).pdf"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               style={styles.secondaryBtn}
@@ -347,10 +347,9 @@ const Hero = () => {
 
           <div style={styles.socialLinks} className="hero-social">
             {[
-              { icon: FiGithub, href: "https://github.com", label: "GitHub" },
-              { icon: FiLinkedin, href: "https://linkedin.com", label: "LinkedIn" },
-              { icon: FiTwitter, href: "https://twitter.com", label: "Twitter" },
-              { icon: FiMail, href: "mailto:suhaibali@email.com", label: "Email" },
+              { icon: FiGithub, href: "https://github.com/settings/profile", label: "GitHub" },
+              { icon: FiLinkedin, href: "https://www.linkedin.com/in/suhaib-ali-10964632a/", label: "LinkedIn" },
+              { icon: FiMail, href: "mailto:suhaibfreelancer0@email.com", label: "Email" },
             ].map((social, index) => (
               <motion.a
                 key={index}
