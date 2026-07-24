@@ -1,24 +1,26 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Typed from "typed.js";
 import { 
   FiArrowRight, FiDownload, FiGithub, FiLinkedin, 
-  FiTwitter, FiMail 
+  FiTwitter, FiMail, FiTerminal, FiMapPin, FiCode,
+  FiServer, FiDatabase, FiZap
 } from "react-icons/fi";
 
 const Hero = () => {
   const typedRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
 
   useEffect(() => {
     const options = {
       strings: [
-        'Frontend Developer 🚀',
-        'App Developer 📱',
-        'React.js Expert ⚛️',
-        'Next.js Specialist 💎',
-        'Full Stack Developer 💻',
+        'Full Stack Developer & AI Engineer',
       ],
       typeSpeed: 50,
       backSpeed: 30,
@@ -33,10 +35,15 @@ const Hero = () => {
   }, []);
 
   const stats = [
-    { number: "2+", label: "Years Experience" },
-    { number: "14+", label: "Projects Completed" },
-    { number: "6+", label: "Technologies" },
-    { number: "179+", label: "Code Commits" },
+    { number: "195+", label: "PROJECTS" },
+    { number: "5.0", label: "RATING" },
+    { number: "100+", label: "CLIENTS" },
+  ];
+
+  const pipeline = [
+    { icon: FiCode, name: "Next.js", desc: "Frontend + Dashboard" },
+    { icon: FiServer, name: "React Native ", desc: "App Developing" },
+{ icon: FiCode, name: "Next.js + React Native", desc: "Web & Mobile Apps" },    { icon: FiZap, name: " Email", desc: "Instant alerts" },
   ];
 
   const styles = {
@@ -61,35 +68,36 @@ const Hero = () => {
       position: 'relative',
       zIndex: 2,
     },
-    // Background Glows
-   
-    bgGlow2: {
-      position: 'absolute',
-      bottom: '-20%',
-      left: '-10%',
-      width: '500px',
-      height: '500px',
-      background: 'radial-gradient(circle, rgba(236,72,153,0.1) 0%, transparent 70%)',
-      borderRadius: '50%',
-      filter: 'blur(80px)',
-      zIndex: 0,
-    },
     // Left Content
     leftContent: {
       display: 'flex',
       flexDirection: 'column',
-      gap: '20px',
+      gap: '16px',
     },
-    badge: {
-      display: 'inline-block',
-      padding: '8px 20px',
-      background: 'rgba(139,92,246,0.15)',
-      border: '1px solid rgba(139,92,246,0.3)',
-      borderRadius: '9999px',
-      color: '#a78bfa',
-      fontSize: '14px',
-      fontWeight: 500,
+    // System Header
+    systemHeader: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '12px',
+      padding: '6px 14px',
+      background: 'rgba(16,185,129,0.06)',
+      border: '1px solid rgba(16,185,129,0.1)',
+      borderRadius: '6px',
+      fontSize: '12px',
+      color: '#10b981',
+      fontFamily: 'monospace',
       width: 'fit-content',
+    },
+    dot: {
+      width: '8px',
+      height: '8px',
+      borderRadius: '50%',
+      display: 'inline-block',
+    },
+    greeting: {
+      fontSize: '1.1rem',
+      color: '#6b7280',
+      marginBottom: '2px',
     },
     title: {
       fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
@@ -98,52 +106,73 @@ const Hero = () => {
       color: '#ffffff',
     },
     titleGradient: {
-      background: 'linear-gradient(to right, #a78bfa, #8b5cf6, #7c3aed)',
+      background: 'linear-gradient(to right, #10b981, #059669, #047857)',
       WebkitBackgroundClip: 'text',
       WebkitTextFillColor: 'transparent',
       backgroundClip: 'text',
+    },
+    cursor: {
+      display: 'inline-block',
+      width: '3px',
+      height: 'clamp(2rem, 4vw, 3rem)',
+      background: '#10b981',
+      marginLeft: '4px',
+      animation: 'blink 1s step-end infinite',
     },
     subtitle: {
       fontSize: 'clamp(1.2rem, 2vw, 1.8rem)',
       color: '#9ca3af',
       minHeight: '50px',
       fontWeight: 500,
+      fontFamily: 'monospace',
+    },
+    command: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '8px',
+      color: '#10b981',
+      fontSize: '14px',
+      fontFamily: 'monospace',
+      background: 'rgba(16,185,129,0.05)',
+      padding: '4px 12px',
+      borderRadius: '4px',
+      width: 'fit-content',
     },
     description: {
-      fontSize: '1.1rem',
+      fontSize: '1rem',
       color: '#6b7280',
-      maxWidth: '500px',
+      maxWidth: '520px',
       lineHeight: 1.8,
     },
     buttons: {
       display: 'flex',
       gap: '16px',
       flexWrap: 'wrap',
+      marginTop: '4px',
     },
     primaryBtn: {
-      padding: '14px 32px',
-      background: 'linear-gradient(to right, #8b5cf6, #7c3aed)',
-      border: 'none',
+      padding: '12px 28px',
+      background: 'transparent',
+      border: '1px solid rgba(16,185,129,0.3)',
       borderRadius: '9999px',
-      color: 'white',
-      fontWeight: 'bold',
-      fontSize: '16px',
+      color: '#10b981',
+      fontWeight: 500,
+      fontSize: '14px',
       cursor: 'pointer',
       display: 'flex',
       alignItems: 'center',
       gap: '8px',
       transition: 'all 0.3s ease',
-      boxShadow: '0 4px 20px rgba(139,92,246,0.4)',
       textDecoration: 'none',
     },
     secondaryBtn: {
-      padding: '14px 32px',
-      background: 'rgba(255,255,255,0.05)',
-      border: '1px solid rgba(255,255,255,0.1)',
+      padding: '12px 28px',
+      background: 'rgba(255,255,255,0.03)',
+      border: '1px solid rgba(255,255,255,0.06)',
       borderRadius: '9999px',
       color: 'white',
-      fontWeight: 'bold',
-      fontSize: '16px',
+      fontWeight: 500,
+      fontSize: '14px',
       cursor: 'pointer',
       display: 'flex',
       alignItems: 'center',
@@ -153,106 +182,100 @@ const Hero = () => {
     },
     socialLinks: {
       display: 'flex',
-      gap: '16px',
+      gap: '12px',
+      marginTop: '4px',
     },
     socialIcon: {
-      width: '44px',
-      height: '44px',
+      width: '40px',
+      height: '40px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: '50%',
-      background: 'rgba(255,255,255,0.05)',
-      border: '1px solid rgba(255,255,255,0.1)',
+      background: 'rgba(255,255,255,0.02)',
+      border: '1px solid rgba(255,255,255,0.04)',
       color: '#6b7280',
       transition: 'all 0.3s ease',
       cursor: 'pointer',
       textDecoration: 'none',
     },
-    // Right Content - Image with Simple Blue Line
+    // Right Content
     rightContent: {
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'center',
-      gap: '32px',
-      position: 'relative',
+      gap: '24px',
     },
-    profileContainer: {
-      position: 'relative',
-      width: '100%',
-      maxWidth: '420px',
-      aspectRatio: '1',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    // SIMPLE BLUE LINE - Top Left Corner
-    cornerLine: {
-      position: 'absolute',
-      top: '-20px',
-      left: '-20px',
-      width: '80px',
-      height: '80px',
-      borderTop: '3px solid #3b82f6',
-      borderLeft: '3px solid #3b82f6',
-      borderRadius: '4px 0 0 0',
-      zIndex: 1,
-      opacity: 0.6,
-    },
-    profileCircle: {
-      width: '100%',
-      height: '100%',
-      borderRadius: '50%',
-      background: 'linear-gradient(135deg, #8b5cf6, #7c3aed, #ec4899)',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      position: 'relative',
-      overflow: 'hidden',
-      boxShadow: '0 0 80px rgba(139,92,246,0.3)',
-      border: '4px solid rgba(139,92,246,0.2)',
-    },
-    profileImage: {
-      width: '100%',
-      height: '100%',
-      objectFit: 'cover',
-      borderRadius: '50%',
-    },
-    // Simple Glow Ring
-    glowRing: {
-      position: 'absolute',
-      inset: '-12px',
-      borderRadius: '50%',
-      border: '2px solid rgba(59,130,246,0.3)',
-      opacity: 0.5,
-    },
+    // Stats Grid
     statsGrid: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(4, 1fr)',
+      gridTemplateColumns: 'repeat(3, 1fr)',
       gap: '16px',
       width: '100%',
-      maxWidth: '420px',
     },
     statCard: {
       padding: '16px',
       textAlign: 'center',
-      background: 'rgba(255,255,255,0.03)',
+      background: 'rgba(255,255,255,0.02)',
       borderRadius: '12px',
-      border: '1px solid rgba(255,255,255,0.05)',
+      border: '1px solid rgba(255,255,255,0.04)',
       transition: 'all 0.3s ease',
     },
     statNumber: {
-      fontSize: '24px',
+      fontSize: '28px',
       fontWeight: 'bold',
-      background: 'linear-gradient(to right, #a78bfa, #8b5cf6)',
-      WebkitBackgroundClip: 'text',
-      WebkitTextFillColor: 'transparent',
-      backgroundClip: 'text',
+      color: '#10b981',
+      letterSpacing: '1px',
     },
     statLabel: {
-      fontSize: '12px',
+      fontSize: '11px',
       color: '#6b7280',
       marginTop: '4px',
+      letterSpacing: '1px',
+      fontWeight: 500,
+    },
+    // Pipeline Architecture
+    pipelineSection: {
+      marginTop: '8px',
+    },
+    pipelineTitle: {
+      fontSize: '12px',
+      color: '#6b7280',
+      textTransform: 'uppercase',
+      letterSpacing: '2px',
+      marginBottom: '12px',
+      fontFamily: 'monospace',
+    },
+    pipelineGrid: {
+      display: 'grid',
+      gridTemplateColumns: '1fr 1fr',
+      gap: '12px',
+    },
+    pipelineItem: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '12px',
+      padding: '12px 16px',
+      background: 'rgba(255,255,255,0.02)',
+      border: '1px solid rgba(255,255,255,0.04)',
+      borderRadius: '8px',
+      transition: 'all 0.3s ease',
+    },
+    pipelineIcon: {
+      fontSize: '18px',
+      color: '#10b981',
+    },
+    pipelineInfo: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    pipelineName: {
+      fontSize: '13px',
+      color: '#ffffff',
+      fontWeight: 500,
+    },
+    pipelineDesc: {
+      fontSize: '11px',
+      color: '#6b7280',
     },
   };
 
@@ -263,10 +286,10 @@ const Hero = () => {
         gap: 40px !important;
       }
       .hero-stats {
-        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-columns: repeat(3, 1fr) !important;
       }
-      .hero-profile {
-        max-width: 280px !important;
+      .hero-pipeline {
+        grid-template-columns: 1fr !important;
       }
       .hero-left {
         text-align: center !important;
@@ -276,27 +299,21 @@ const Hero = () => {
         max-width: 100% !important;
         text-align: center !important;
       }
-      .hero-badge {
-        margin: 0 auto !important;
+      .hero-buttons {
+        justify-content: center !important;
       }
       .hero-social {
         justify-content: center !important;
       }
-      .hero-buttons {
-        justify-content: center !important;
-      }
-      .corner-line {
-        display: none !important;
-      }
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
     }
   `;
 
   return (
     <section id="home" style={styles.section}>
-      {/* Background Effects */}
-      <div style={styles.bgGlow1} />
-      <div style={styles.bgGlow2} />
-
       <div style={styles.container} className="hero-container">
         {/* ===== LEFT SIDE ===== */}
         <motion.div
@@ -306,96 +323,99 @@ const Hero = () => {
           style={styles.leftContent}
           className="hero-left"
         >
-          <div style={styles.badge} className="hero-badge">
-            🚀 Available for Freelance Work
-          </div>
+          {/* System Header */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            style={styles.systemHeader}
+          >
+            <span style={{ ...styles.dot, background: '#10b981' }} />
+            <span style={{ ...styles.dot, background: '#f59e0b' }} />
+            <span style={{ ...styles.dot, background: '#ef4444' }} />
+            <span style={{ marginLeft: '8px' }}>PORTFOLIO.SYS · v2026</span>
+            <span style={{ marginLeft: '8px', color: '#6b7280' }}>33.6844°N · 73.0479°E</span>
+          </motion.div>
 
-          <h1 style={styles.title}>
-            Hi, I'm <br />
-            <span style={styles.titleGradient}>Suhaib Ali</span>
-          </h1>
+          <div>
+            <p style={styles.greeting}>👋 Hi, I'm</p>
+            <h1 style={styles.title}>
+              <span style={styles.titleGradient}>Suhaib Ali</span>
+              <span style={styles.cursor} />
+            </h1>
+          </div>
 
           <div style={styles.subtitle}>
             <span ref={typedRef}></span>
           </div>
 
+          {/* Command Line */}
+          <div style={styles.command}>
+            <FiTerminal size={14} />
+            <span>$ npm run build</span>
+          </div>
+
           <p style={styles.description} className="hero-description">
-            I'm a passionate <strong style={{ color: '#a78bfa' }}>Frontend Developer</strong> and 
-            <strong style={{ color: '#ec4899' }}> App Developer</strong> with 2+ years of experience 
-            building modern, responsive web applications and mobile apps using 
-            React.js, Next.js, and React Native.
+            I build SaaS platforms, web applications, and mobile apps that hold up in production, 
+            for clients across the globe. 15+ projects delivered with a 5.0 rating.
           </p>
 
+          {/* Buttons */}
           <div style={styles.buttons} className="hero-buttons">
             <motion.a
-              href="#contact"
-              whileHover={{ scale: 1.05 }}
+              href="#projects"
+              whileHover={{ 
+                scale: 1.05,
+                background: 'rgba(16,185,129,0.1)',
+                borderColor: '#10b981'
+              }}
               whileTap={{ scale: 0.95 }}
               style={styles.primaryBtn}
             >
-              Hire Me <FiArrowRight />
+              View Projects <FiArrowRight />
             </motion.a>
             <motion.a
-              href="resume/Suhaib_Ali_Resume (1).pdf"
-              whileHover={{ scale: 1.05 }}
+              href="#services"
+              whileHover={{ 
+                scale: 1.05,
+                background: 'rgba(255,255,255,0.05)',
+                borderColor: 'rgba(255,255,255,0.1)'
+              }}
               whileTap={{ scale: 0.95 }}
               style={styles.secondaryBtn}
             >
-              <FiDownload /> Download CV
+              EXPLORE STACK
             </motion.a>
           </div>
 
+          {/* Social Links */}
           <div style={styles.socialLinks} className="hero-social">
             {[
-              { icon: FiGithub, href: "https://github.com/settings/profile", label: "GitHub" },
-              { icon: FiLinkedin, href: "https://www.linkedin.com/in/suhaib-ali-10964632a/", label: "LinkedIn" },
-              { icon: FiMail, href: "mailto:suhaibfreelancer0@email.com", label: "Email" },
+              { icon: FiGithub, href: "https://github.com/settings/profile" },
+              { icon: FiLinkedin, href: "https://www.linkedin.com/in/suhaib-ali-10964632a/" },
+              { icon: FiMail, href: "mailto:suhaibfreelancer0@email.com" },
             ].map((social, index) => (
               <motion.a
                 key={index}
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ y: -3, color: '#a78bfa', borderColor: '#a78bfa' }}
+                whileHover={{ y: -3, color: '#10b981', borderColor: 'rgba(16,185,129,0.2)' }}
                 style={styles.socialIcon}
               >
-                <social.icon size={20} />
+                <social.icon size={18} />
               </motion.a>
             ))}
           </div>
         </motion.div>
 
-        {/* ===== RIGHT SIDE - Image with Simple Blue Line ===== */}
+        {/* ===== RIGHT SIDE ===== */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
           style={styles.rightContent}
         >
-          <div style={styles.profileContainer} className="hero-profile">
-            {/* Simple Blue Corner Line */}
-            <div style={styles.cornerLine} className="corner-line" />
-
-            {/* Simple Glow Ring */}
-            <div style={styles.glowRing} />
-
-            {/* Profile Circle with YOUR IMAGE */}
-            <motion.div
-              animate={{ 
-                scale: [1, 1.02, 1],
-              }}
-              transition={{ duration: 4, repeat: Infinity }}
-              style={styles.profileCircle}
-            >
-              {/* ===== YOUR IMAGE ===== */}
-              <img 
-                src="assets/portfolio-image.png" 
-                alt="Suhaib Ali" 
-                style={styles.profileImage} 
-              />
-            </motion.div>
-          </div>
-
           {/* Stats */}
           <div style={styles.statsGrid} className="hero-stats">
             {stats.map((stat, index) => (
@@ -406,15 +426,45 @@ const Hero = () => {
                 transition={{ delay: index * 0.1 }}
                 style={styles.statCard}
                 whileHover={{ 
-                  background: 'rgba(139,92,246,0.1)',
-                  borderColor: 'rgba(139,92,246,0.3)',
-                  y: -5
+                  background: 'rgba(16,185,129,0.03)',
+                  borderColor: 'rgba(16,185,129,0.1)',
+                  y: -3
                 }}
               >
                 <div style={styles.statNumber}>{stat.number}</div>
                 <div style={styles.statLabel}>{stat.label}</div>
               </motion.div>
             ))}
+          </div>
+
+          {/* Pipeline Architecture */}
+          <div style={styles.pipelineSection}>
+            <div style={styles.pipelineTitle}>pipeline.architecture</div>
+            <div style={styles.pipelineGrid} className="hero-pipeline">
+              {pipeline.map((item, index) => {
+                const Icon = item.icon;
+                return (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.3 + index * 0.1 }}
+                    style={styles.pipelineItem}
+                    whileHover={{ 
+                      background: 'rgba(16,185,129,0.03)',
+                      borderColor: 'rgba(16,185,129,0.1)',
+                      y: -2
+                    }}
+                  >
+                    <Icon style={styles.pipelineIcon} />
+                    <div style={styles.pipelineInfo}>
+                      <span style={styles.pipelineName}>{item.name}</span>
+                      <span style={styles.pipelineDesc}>{item.desc}</span>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
         </motion.div>
       </div>

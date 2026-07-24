@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FiMenu, FiX } from "react-icons/fi";
 import { 
   FaHome, FaUser, FaProjectDiagram, FaServicestack, 
-  FaEnvelope, FaGithub, FaLinkedin, FaTwitter 
+  FaEnvelope, FaGithub, FaLinkedin, FaTwitter, FaStar  // ← ADDED FaStar
 } from "react-icons/fa";
 
 const navLinks = [
@@ -14,6 +14,7 @@ const navLinks = [
   { name: "About", href: "#about", icon: FaUser },
   { name: "Projects", href: "#projects", icon: FaProjectDiagram },
   { name: "Services", href: "#services", icon: FaServicestack },
+  { name: "Reviews", href: "#reviews", icon: FaStar },  // ← Now works!
   { name: "Contact", href: "#contact", icon: FaEnvelope },
 ];
 
@@ -38,7 +39,6 @@ export default function Navbar() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Styles - Using objects without TypeScript syntax
   const styles = {
     header: {
       position: 'fixed',
@@ -52,7 +52,7 @@ export default function Navbar() {
         : 'rgba(10, 10, 10, 0.8)',
       backdropFilter: 'blur(12px)',
       borderBottom: scrolled 
-        ? '1px solid rgba(139, 92, 246, 0.2)' 
+        ? '1px solid rgba(16, 185, 129, 0.15)' 
         : '1px solid rgba(255, 255, 255, 0.05)',
       boxShadow: scrolled ? '0 10px 40px rgba(0,0,0,0.5)' : 'none',
     },
@@ -72,7 +72,7 @@ export default function Navbar() {
       color: 'white',
     },
     logoGradient: {
-      background: 'linear-gradient(to right, #a78bfa, #8b5cf6, #7c3aed)',
+      background: 'linear-gradient(to right, #10b981, #059669, #047857)',
       WebkitBackgroundClip: 'text',
       WebkitTextFillColor: 'transparent',
       backgroundClip: 'text',
@@ -80,9 +80,8 @@ export default function Navbar() {
     logoDot: {
       color: 'white',
     },
-    // Desktop menu ki inline positioning styles yahin rahengi,
-    // lekin display: flex/none ab CSS class (.desktop-menu) se control hoga
     desktopMenu: {
+      display: 'flex',
       alignItems: 'center',
       gap: '8px',
     },
@@ -97,21 +96,21 @@ export default function Navbar() {
         fontWeight: 500,
         textDecoration: 'none',
         transition: 'all 0.3s ease',
-        color: isActive ? '#a78bfa' : '#9ca3af',
-        background: isActive ? 'rgba(139, 92, 246, 0.1)' : 'transparent',
-        border: isActive ? '1px solid rgba(139, 92, 246, 0.3)' : '1px solid transparent',
+        color: isActive ? '#10b981' : '#9ca3af',
+        background: isActive ? 'rgba(16, 185, 129, 0.1)' : 'transparent',
+        border: isActive ? '1px solid rgba(16, 185, 129, 0.2)' : '1px solid transparent',
       };
     },
     icon: function(isActive) {
       return {
         fontSize: '14px',
-        color: isActive ? '#a78bfa' : '#6b7280',
+        color: isActive ? '#10b981' : '#6b7280',
       };
     },
     hireButton: {
       marginLeft: '16px',
       padding: '12px 28px',
-      background: 'linear-gradient(to right, #ec4899, #8b5cf6, #6366f1)',
+      background: 'linear-gradient(to right, #10b981, #059669)',
       border: 'none',
       borderRadius: '9999px',
       color: 'white',
@@ -119,12 +118,12 @@ export default function Navbar() {
       fontSize: '14px',
       cursor: 'pointer',
       transition: 'all 0.3s ease',
-      boxShadow: '0 4px 20px rgba(139, 92, 246, 0.4)',
+      boxShadow: '0 4px 20px rgba(16, 185, 129, 0.3)',
       position: 'relative',
       overflow: 'hidden',
     },
-    // display: block hata diya - ab .mobile-toggle class se control hoga
     mobileButton: {
+      display: 'none',
       background: 'none',
       border: 'none',
       color: 'white',
@@ -137,8 +136,9 @@ export default function Navbar() {
     mobileMenu: {
       background: 'rgba(10, 10, 10, 0.98)',
       backdropFilter: 'blur(12px)',
-      borderTop: '1px solid rgba(139, 92, 246, 0.2)',
+      borderTop: '1px solid rgba(16, 185, 129, 0.15)',
       overflow: 'hidden',
+      display: 'none',
     },
     mobileMenuContent: {
       display: 'flex',
@@ -157,14 +157,14 @@ export default function Navbar() {
         fontWeight: 500,
         textDecoration: 'none',
         transition: 'all 0.3s ease',
-        color: isActive ? '#a78bfa' : '#9ca3af',
-        background: isActive ? 'rgba(139, 92, 246, 0.1)' : 'transparent',
-        border: isActive ? '1px solid rgba(139, 92, 246, 0.2)' : '1px solid transparent',
+        color: isActive ? '#10b981' : '#9ca3af',
+        background: isActive ? 'rgba(16, 185, 129, 0.1)' : 'transparent',
+        border: isActive ? '1px solid rgba(16, 185, 129, 0.2)' : '1px solid transparent',
       };
     },
     mobileHireButton: {
       padding: '16px',
-      background: 'linear-gradient(to right, #ec4899, #8b5cf6, #6366f1)',
+      background: 'linear-gradient(to right, #10b981, #059669)',
       border: 'none',
       borderRadius: '12px',
       color: 'white',
@@ -172,7 +172,7 @@ export default function Navbar() {
       fontSize: '18px',
       cursor: 'pointer',
       marginTop: '16px',
-      boxShadow: '0 4px 20px rgba(139, 92, 246, 0.3)',
+      boxShadow: '0 4px 20px rgba(16, 185, 129, 0.3)',
     },
     socialLinks: {
       display: 'flex',
@@ -191,192 +191,205 @@ export default function Navbar() {
       bottom: 0,
       left: 0,
       height: '2px',
-      background: 'linear-gradient(to right, #a78bfa, #8b5cf6, #7c3aed)',
+      background: 'linear-gradient(to right, #10b981, #059669, #047857)',
       transition: 'width 0.3s ease',
       width: scrolled ? '100%' : '0%',
     },
   };
 
+  // CSS for responsive
+  const responsiveStyles = `
+    @media (min-width: 769px) {
+      .mobile-menu-btn {
+        display: none !important;
+      }
+      .mobile-menu {
+        display: none !important;
+      }
+      .desktop-menu {
+        display: flex !important;
+      }
+    }
+    @media (max-width: 768px) {
+      .desktop-menu {
+        display: none !important;
+      }
+      .mobile-menu-btn {
+        display: block !important;
+      }
+      .mobile-menu {
+        display: block !important;
+      }
+    }
+  `;
+
   return (
-    <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, type: "spring", stiffness: 100 }}
-      style={styles.header}
-    >
-      <nav style={styles.nav}>
-        {/* Logo */}
-        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-          <Link href="/" style={styles.logo}>
-            <span style={styles.logoGradient}>Suhaib</span>
-            <span style={styles.logoDot}>.</span>
-          </Link>
-        </motion.div>
+    <>
+      <motion.header
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.6, type: "spring", stiffness: 100 }}
+        style={styles.header}
+      >
+        <nav style={styles.nav}>
+          {/* Logo */}
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <Link href="/" style={styles.logo}>
+              <span style={styles.logoGradient}>Suhaib</span>
+              <span style={styles.logoDot}>.</span>
+            </Link>
+          </motion.div>
 
-        {/* Desktop Menu - class 'desktop-menu' se responsive control */}
-        <div className="desktop-menu" style={styles.desktopMenu}>
-          {navLinks.map((link) => {
-            const Icon = link.icon;
-            const isActive = activeLink === link.name;
-            return (
-              <motion.div
-                key={link.name}
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Link
-                  href={link.href}
-                  onClick={() => setActiveLink(link.name)}
-                  style={styles.link(isActive)}
-                  onMouseEnter={(e) => {
-                    if (!isActive) {
-                      e.currentTarget.style.color = '#a78bfa';
-                      e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isActive) {
-                      e.currentTarget.style.color = '#9ca3af';
-                      e.currentTarget.style.background = 'transparent';
-                    }
-                  }}
+          {/* Desktop Menu */}
+          <div style={styles.desktopMenu} className="desktop-menu">
+            {navLinks.map((link) => {
+              const Icon = link.icon;
+              const isActive = activeLink === link.name;
+              return (
+                <motion.div
+                  key={link.name}
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  <Icon style={styles.icon(isActive)} />
-                  {link.name}
-                </Link>
-              </motion.div>
-            );
-          })}
-
-          {/* Hire Me Button */}
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            style={styles.hireButton}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'scale(1.05)';
-              e.currentTarget.style.boxShadow = '0 8px 40px rgba(139, 92, 246, 0.6)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'scale(1)';
-              e.currentTarget.style.boxShadow = '0 4px 20px rgba(139, 92, 246, 0.4)';
-            }}
-          >
-            <span style={{ position: 'relative', zIndex: 10, display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span>✨</span> Hire Me <span>→</span>
-            </span>
-          </motion.button>
-        </div>
-
-        {/* Mobile Menu Button - class 'mobile-toggle' se responsive control */}
-        <motion.button
-          className="mobile-toggle"
-          style={styles.mobileButton}
-          onClick={() => setIsOpen(!isOpen)}
-          whileTap={{ scale: 0.9 }}
-          onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
-          onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
-        >
-          {isOpen ? <FiX color="#a78bfa" size={28} /> : <FiMenu color="#a78bfa" size={28} />}
-        </motion.button>
-      </nav>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            style={styles.mobileMenu}
-          >
-            <div style={styles.mobileMenuContent}>
-              {navLinks.map((link, index) => {
-                const Icon = link.icon;
-                const isActive = activeLink === link.name;
-                return (
-                  <motion.div
-                    key={link.name}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.08 }}
+                  <Link
+                    href={link.href}
+                    onClick={() => setActiveLink(link.name)}
+                    style={styles.link(isActive)}
+                    onMouseEnter={(e) => {
+                      if (!isActive) {
+                        e.currentTarget.style.color = '#10b981';
+                        e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isActive) {
+                        e.currentTarget.style.color = '#9ca3af';
+                        e.currentTarget.style.background = 'transparent';
+                      }
+                    }}
                   >
-                    <Link
-                      href={link.href}
-                      onClick={() => {
-                        setIsOpen(false);
-                        setActiveLink(link.name);
-                      }}
-                      style={styles.mobileLink(isActive)}
-                    >
-                      <Icon style={{ fontSize: '20px', color: isActive ? '#a78bfa' : '#6b7280' }} />
-                      {link.name}
-                      {isActive && (
-                        <span style={{ marginLeft: 'auto', width: '8px', height: '8px', borderRadius: '50%', background: '#a78bfa' }} />
-                      )}
-                    </Link>
-                  </motion.div>
-                );
-              })}
+                    <Icon style={styles.icon(isActive)} />
+                    {link.name}
+                  </Link>
+                </motion.div>
+              );
+            })}
 
-              <motion.button
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                style={styles.mobileHireButton}
-              >
-                <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
-                  <span>✨</span> Hire Me <span>→</span>
-                </span>
-              </motion.button>
+            {/* Hire Me Button */}
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              style={styles.hireButton}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'scale(1.05)';
+                e.currentTarget.style.boxShadow = '0 8px 40px rgba(16, 185, 129, 0.5)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'scale(1)';
+                e.currentTarget.style.boxShadow = '0 4px 20px rgba(16, 185, 129, 0.3)';
+              }}
+            >
+              <span style={{ position: 'relative', zIndex: 10, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                ✨ Hire Me
+              </span>
+            </motion.button>
+          </div>
 
-              <div style={styles.socialLinks}>
-                {[
-                  { icon: FaGithub },
-                  { icon: FaLinkedin },
-                  { icon: FaTwitter },
-                ].map((social, i) => {
-                  const Icon = social.icon;
+          {/* Mobile Menu Button */}
+          <motion.button
+            style={{ ...styles.mobileButton, display: 'block' }}
+            className="mobile-menu-btn"
+            onClick={() => setIsOpen(!isOpen)}
+            whileTap={{ scale: 0.9 }}
+            onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
+            onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+          >
+            {isOpen ? <FiX color="#10b981" size={28} /> : <FiMenu color="#10b981" size={28} />}
+          </motion.button>
+        </nav>
+
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              style={styles.mobileMenu}
+              className="mobile-menu"
+            >
+              <div style={styles.mobileMenuContent}>
+                {navLinks.map((link, index) => {
+                  const Icon = link.icon;
+                  const isActive = activeLink === link.name;
                   return (
-                    <motion.a
-                      key={i}
-                      href="#"
-                      whileHover={{ scale: 1.2, y: -3 }}
-                      style={styles.socialLink}
-                      onMouseEnter={(e) => e.currentTarget.style.color = '#a78bfa'}
-                      onMouseLeave={(e) => e.currentTarget.style.color = '#6b7280'}
+                    <motion.div
+                      key={link.name}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.08 }}
                     >
-                      <Icon size={24} />
-                    </motion.a>
+                      <Link
+                        href={link.href}
+                        onClick={() => {
+                          setIsOpen(false);
+                          setActiveLink(link.name);
+                        }}
+                        style={styles.mobileLink(isActive)}
+                      >
+                        <Icon style={{ fontSize: '20px', color: isActive ? '#10b981' : '#6b7280' }} />
+                        {link.name}
+                        {isActive && (
+                          <span style={{ marginLeft: 'auto', width: '8px', height: '8px', borderRadius: '50%', background: '#10b981' }} />
+                        )}
+                      </Link>
+                    </motion.div>
                   );
                 })}
+
+                <motion.button
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  style={styles.mobileHireButton}
+                >
+                  <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                    ✨ Hire Me
+                  </span>
+                </motion.button>
+
+                <div style={styles.socialLinks}>
+                  {[
+                    { icon: FaGithub },
+                    { icon: FaLinkedin },
+                    { icon: FaTwitter },
+                  ].map((social, i) => {
+                    const Icon = social.icon;
+                    return (
+                      <motion.a
+                        key={i}
+                        href="#"
+                        whileHover={{ scale: 1.2, y: -3 }}
+                        style={styles.socialLink}
+                        onMouseEnter={(e) => e.currentTarget.style.color = '#10b981'}
+                        onMouseLeave={(e) => e.currentTarget.style.color = '#6b7280'}
+                      >
+                        <Icon size={24} />
+                      </motion.a>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-      {/* Progress Bar */}
-      <div style={styles.progressBar} />
+        {/* Progress Bar */}
+        <div style={styles.progressBar} />
+      </motion.header>
 
-      {/* Responsive CSS - yehi asal fix hai */}
-      <style jsx>{`
-        .desktop-menu {
-          display: none;
-        }
-        .mobile-toggle {
-          display: block;
-        }
-        @media (min-width: 768px) {
-          .desktop-menu {
-            display: flex;
-          }
-          .mobile-toggle {
-            display: none;
-          }
-        }
-      `}</style>
-    </motion.header>
+      <style>{responsiveStyles}</style>
+    </>
   );
 }
