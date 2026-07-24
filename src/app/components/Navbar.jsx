@@ -80,8 +80,9 @@ export default function Navbar() {
     logoDot: {
       color: 'white',
     },
+    // Desktop menu ki inline positioning styles yahin rahengi,
+    // lekin display: flex/none ab CSS class (.desktop-menu) se control hoga
     desktopMenu: {
-      display: 'flex',
       alignItems: 'center',
       gap: '8px',
     },
@@ -122,8 +123,8 @@ export default function Navbar() {
       position: 'relative',
       overflow: 'hidden',
     },
+    // display: block hata diya - ab .mobile-toggle class se control hoga
     mobileButton: {
-      display: 'block',
       background: 'none',
       border: 'none',
       color: 'white',
@@ -212,8 +213,8 @@ export default function Navbar() {
           </Link>
         </motion.div>
 
-        {/* Desktop Menu */}
-        <div style={styles.desktopMenu}>
+        {/* Desktop Menu - class 'desktop-menu' se responsive control */}
+        <div className="desktop-menu" style={styles.desktopMenu}>
           {navLinks.map((link) => {
             const Icon = link.icon;
             const isActive = activeLink === link.name;
@@ -267,8 +268,9 @@ export default function Navbar() {
           </motion.button>
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Menu Button - class 'mobile-toggle' se responsive control */}
         <motion.button
+          className="mobile-toggle"
           style={styles.mobileButton}
           onClick={() => setIsOpen(!isOpen)}
           whileTap={{ scale: 0.9 }}
@@ -357,6 +359,24 @@ export default function Navbar() {
 
       {/* Progress Bar */}
       <div style={styles.progressBar} />
+
+      {/* Responsive CSS - yehi asal fix hai */}
+      <style jsx>{`
+        .desktop-menu {
+          display: none;
+        }
+        .mobile-toggle {
+          display: block;
+        }
+        @media (min-width: 768px) {
+          .desktop-menu {
+            display: flex;
+          }
+          .mobile-toggle {
+            display: none;
+          }
+        }
+      `}</style>
     </motion.header>
   );
 }
