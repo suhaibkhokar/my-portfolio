@@ -11,11 +11,6 @@ import {
 
 const Hero = () => {
   const typedRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
 
   useEffect(() => {
     const options = {
@@ -42,8 +37,9 @@ const Hero = () => {
 
   const pipeline = [
     { icon: FiCode, name: "Next.js", desc: "Frontend + Dashboard" },
-    { icon: FiServer, name: "React Native ", desc: "App Developing" },
-{ icon: FiCode, name: "Next.js + React Native", desc: "Web & Mobile Apps" },    { icon: FiZap, name: " Email", desc: "Instant alerts" },
+    { icon: FiServer, name: "FastAPI", desc: "API + Scraper workers" },
+    { icon: FiDatabase, name: "PostgreSQL + Redis", desc: "Storage + Queues" },
+    { icon: FiZap, name: "Telegram / Email", desc: "Instant alerts" },
   ];
 
   const styles = {
@@ -56,6 +52,19 @@ const Hero = () => {
       background: '#0a0a0a',
       position: 'relative',
       overflow: 'hidden',
+    },
+    // Background Glow
+    bgGlow: {
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      width: '800px',
+      height: '800px',
+      background: 'radial-gradient(circle, rgba(16,185,129,0.05) 0%, transparent 70%)',
+      borderRadius: '50%',
+      filter: 'blur(80px)',
+      zIndex: 0,
     },
     container: {
       maxWidth: '1280px',
@@ -199,11 +208,11 @@ const Hero = () => {
       cursor: 'pointer',
       textDecoration: 'none',
     },
-    // Right Content
+    // Right Content - Pipeline Only
     rightContent: {
       display: 'flex',
       flexDirection: 'column',
-      gap: '24px',
+      gap: '32px',
     },
     // Stats Grid
     statsGrid: {
@@ -242,8 +251,16 @@ const Hero = () => {
       color: '#6b7280',
       textTransform: 'uppercase',
       letterSpacing: '2px',
-      marginBottom: '12px',
+      marginBottom: '16px',
       fontFamily: 'monospace',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '8px',
+    },
+    pipelineTitleLine: {
+      flex: 1,
+      height: '1px',
+      background: 'rgba(255,255,255,0.05)',
     },
     pipelineGrid: {
       display: 'grid',
@@ -253,28 +270,30 @@ const Hero = () => {
     pipelineItem: {
       display: 'flex',
       alignItems: 'center',
-      gap: '12px',
-      padding: '12px 16px',
+      gap: '14px',
+      padding: '16px 20px',
       background: 'rgba(255,255,255,0.02)',
       border: '1px solid rgba(255,255,255,0.04)',
-      borderRadius: '8px',
+      borderRadius: '12px',
       transition: 'all 0.3s ease',
+      cursor: 'pointer',
     },
     pipelineIcon: {
-      fontSize: '18px',
+      fontSize: '20px',
       color: '#10b981',
+      flexShrink: 0,
     },
     pipelineInfo: {
       display: 'flex',
       flexDirection: 'column',
     },
     pipelineName: {
-      fontSize: '13px',
+      fontSize: '14px',
       color: '#ffffff',
-      fontWeight: 500,
+      fontWeight: 600,
     },
     pipelineDesc: {
-      fontSize: '11px',
+      fontSize: '12px',
       color: '#6b7280',
     },
   };
@@ -305,6 +324,9 @@ const Hero = () => {
       .hero-social {
         justify-content: center !important;
       }
+      .hero-status {
+        margin: 0 auto !important;
+      }
     }
     @keyframes blink {
       0%, 100% { opacity: 1; }
@@ -314,6 +336,9 @@ const Hero = () => {
 
   return (
     <section id="home" style={styles.section}>
+      {/* Background Glow */}
+      <div style={styles.bgGlow} />
+
       <div style={styles.container} className="hero-container">
         {/* ===== LEFT SIDE ===== */}
         <motion.div
@@ -329,6 +354,7 @@ const Hero = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
             style={styles.systemHeader}
+            className="hero-status"
           >
             <span style={{ ...styles.dot, background: '#10b981' }} />
             <span style={{ ...styles.dot, background: '#f59e0b' }} />
@@ -391,9 +417,9 @@ const Hero = () => {
           {/* Social Links */}
           <div style={styles.socialLinks} className="hero-social">
             {[
-              { icon: FiGithub, href: "https://github.com/settings/profile" },
-              { icon: FiLinkedin, href: "https://www.linkedin.com/in/suhaib-ali-10964632a/" },
-              { icon: FiMail, href: "mailto:suhaibfreelancer0@email.com" },
+              { icon: FiGithub, href: "https://github.com" },
+              { icon: FiLinkedin, href: "https://linkedin.com" },
+              { icon: FiMail, href: "mailto:suhaib@email.com" },
             ].map((social, index) => (
               <motion.a
                 key={index}
@@ -409,9 +435,9 @@ const Hero = () => {
           </div>
         </motion.div>
 
-        {/* ===== RIGHT SIDE ===== */}
+        {/* ===== RIGHT SIDE - Pipeline Only ===== */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
+          initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
           style={styles.rightContent}
@@ -439,7 +465,10 @@ const Hero = () => {
 
           {/* Pipeline Architecture */}
           <div style={styles.pipelineSection}>
-            <div style={styles.pipelineTitle}>pipeline.architecture</div>
+            <div style={styles.pipelineTitle}>
+              pipeline.architecture
+              <span style={styles.pipelineTitleLine} />
+            </div>
             <div style={styles.pipelineGrid} className="hero-pipeline">
               {pipeline.map((item, index) => {
                 const Icon = item.icon;
@@ -451,9 +480,10 @@ const Hero = () => {
                     transition={{ delay: 0.3 + index * 0.1 }}
                     style={styles.pipelineItem}
                     whileHover={{ 
-                      background: 'rgba(16,185,129,0.03)',
-                      borderColor: 'rgba(16,185,129,0.1)',
-                      y: -2
+                      background: 'rgba(16,185,129,0.05)',
+                      borderColor: 'rgba(16,185,129,0.15)',
+                      y: -3,
+                      boxShadow: '0 8px 30px rgba(0,0,0,0.2)'
                     }}
                   >
                     <Icon style={styles.pipelineIcon} />
