@@ -2,109 +2,60 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { 
-  FiStar, FiUser, FiMapPin, FiCalendar, 
-  FiMessageCircle, FiHeart, FiShare2
-} from "react-icons/fi";
-import { FaQuoteLeft, FaQuoteRight } from "react-icons/fa";
+import { FiStar, FiUser, FiCalendar, FiHeart, FiShare2 } from "react-icons/fi";
+import { FaQuoteLeft } from "react-icons/fa";
 
 const Reviews = () => {
   const [inView, setInView] = useState(false);
-  const sectionRef = useRef(null);
+  const ref = useRef(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-        }
+        if (entry.isIntersecting) setInView(true);
       },
       { threshold: 0.1 }
     );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
   }, []);
 
   const reviews = [
     {
-      id: 1,
       name: "James Mitchell",
-      role: "Product Lead · RealWealtdy",
+      role: "Product Lead",
       country: "🇺🇸 United States",
       date: "2025-12-13",
       rating: 5,
-      content: "Suhaib delivered a production-ready platform with clean architecture and reliable performance. Communication was clear throughout, milestones were met on time, and the final product exceeded our launch requirements.",
+      content: "Suhaib delivered a production-ready platform with clean architecture and reliable performance. Communication was clear throughout.",
       avatar: "JM",
-      color: "#10b981"
+      color: "#10b981",
     },
     {
-      id: 2,
       name: "Aisha Khan",
-      role: "Founder · InvestPlay",
+      role: "Founder",
       country: "🇵🇰 Pakistan",
       date: "2025-11-19",
       rating: 5,
-      content: "From UI polish to backend integration, the quality was consistently high. He understood business goals quickly and translated them into a scalable solution we could confidently ship to users.",
+      content: "From UI polish to backend integration, the quality was consistently high. He understood business goals quickly.",
       avatar: "AK",
-      color: "#8b5cf6"
+      color: "#8b5cf6",
     },
     {
-      id: 3,
       name: "Daniel Ortiz",
-      role: "Engineering Manager · PlanLab Solutions",
+      role: "Engineering Manager",
       country: "🇺🇸 United States",
       date: "2025-11-13",
       rating: 5,
-      content: "A dependable engineer with strong full-stack skills. He writes maintainable code, collaborates well in agile sprints, and proactively suggests improvements that improve delivery speed and product stability.",
+      content: "A dependable engineer with strong full-stack skills. He writes maintainable code and collaborates well.",
       avatar: "DO",
-      color: "#f59e0b"
-    },
-    {
-      id: 4,
-      name: "Sarah Johnson",
-      role: "CTO · TechStart Inc.",
-      country: "🇬🇧 United Kingdom",
-      date: "2025-12-08",
-      rating: 5,
-      content: "Working with Suhaib was a game-changer for our project. His expertise in React and Next.js helped us launch 2 months ahead of schedule. Highly recommend!",
-      avatar: "SJ",
-      color: "#ec4899"
-    },
-    {
-      id: 5,
-      name: "Mohammed Al-Fahd",
-      role: "CEO · Gulf Solutions",
-      country: "🇦🇪 UAE",
-      date: "2025-12-01",
-      rating: 5,
-      content: "Suhaib's AI integration skills are top-notch. He built a complete chatbot system that handles 80% of our customer queries automatically. Outstanding work!",
-      avatar: "MA",
-      color: "#3b82f6"
-    },
-    {
-      id: 6,
-      name: "Emma Watson",
-      role: "Product Manager · HealthTech",
-      country: "🇨🇦 Canada",
-      date: "2025-11-25",
-      rating: 5,
-      content: "The mobile app Suhaib developed for us is beautiful and performs flawlessly. He's now our go-to developer for all React Native projects.",
-      avatar: "EW",
-      color: "#06b6d4"
+      color: "#f59e0b",
     },
   ];
 
   const stats = [
-    { number: "108+", label: "Five-star reviews" },
-    { number: "20", label: "Countries Served" },
+    { number: "108+", label: "Five-Star Reviews" },
+    { number: "20", label: "Countries" },
     { number: "5.0", label: "Average Rating" },
   ];
 
@@ -112,26 +63,10 @@ const Reviews = () => {
     section: {
       padding: '80px 24px',
       background: '#0a0a0a',
-      position: 'relative',
-      overflow: 'hidden',
     },
     container: {
       maxWidth: '1280px',
       margin: '0 auto',
-      position: 'relative',
-      zIndex: 2,
-    },
-    bgGlow: {
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      width: '800px',
-      height: '800px',
-      background: 'radial-gradient(circle, rgba(16,185,129,0.05) 0%, transparent 70%)',
-      borderRadius: '50%',
-      filter: 'blur(80px)',
-      zIndex: 0,
     },
     header: {
       textAlign: 'center',
@@ -140,283 +75,205 @@ const Reviews = () => {
     badge: {
       display: 'inline-block',
       padding: '6px 16px',
-      background: 'rgba(16,185,129,0.1)',
-      border: '1px solid rgba(16,185,129,0.2)',
+      background: 'rgba(16,185,129,0.08)',
+      border: '1px solid rgba(16,185,129,0.15)',
       borderRadius: '9999px',
       color: '#10b981',
-      fontSize: '13px',
-      fontWeight: 500,
-      marginBottom: '16px',
+      fontSize: '12px',
       fontFamily: 'monospace',
+      marginBottom: '16px',
     },
     title: {
       fontSize: 'clamp(2rem, 4vw, 3rem)',
       fontWeight: 'bold',
       color: '#ffffff',
-      marginBottom: '8px',
     },
     titleGradient: {
-      background: 'linear-gradient(to right, #10b981, #059669, #047857)',
+      background: 'linear-gradient(to right, #10b981, #8b5cf6)',
       WebkitBackgroundClip: 'text',
       WebkitTextFillColor: 'transparent',
       backgroundClip: 'text',
     },
-    subtitle: {
-      fontSize: '1.1rem',
-      color: '#6b7280',
-      maxWidth: '600px',
-      margin: '0 auto',
-      lineHeight: 1.7,
-    },
-    // Stats Row
     statsRow: {
       display: 'grid',
       gridTemplateColumns: 'repeat(3, 1fr)',
-      gap: '20px',
+      gap: '16px',
       marginBottom: '40px',
     },
     statCard: {
+      padding: '16px',
       textAlign: 'center',
-      padding: '20px',
       background: 'rgba(255,255,255,0.02)',
-      borderRadius: '16px',
+      borderRadius: '12px',
       border: '1px solid rgba(255,255,255,0.04)',
     },
     statNumber: {
-      fontSize: '32px',
+      fontSize: '28px',
       fontWeight: 'bold',
       color: '#10b981',
     },
     statLabel: {
-      fontSize: '14px',
+      fontSize: '13px',
       color: '#6b7280',
-      marginTop: '4px',
     },
-    // Reviews Grid
-    reviewsGrid: {
+    grid: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fill, minmax(380px, 1fr))',
-      gap: '24px',
+      gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
+      gap: '20px',
     },
-    reviewCard: {
+    card: {
+      padding: '20px',
       background: 'rgba(255,255,255,0.02)',
-      borderRadius: '20px',
-      border: '1px solid rgba(255,255,255,0.05)',
-      padding: '24px',
-      transition: 'all 0.4s ease',
-      position: 'relative',
-    },
-    reviewHeader: {
-      display: 'flex',
-      alignItems: 'center',
-      gap: '14px',
-      marginBottom: '12px',
+      borderRadius: '16px',
+      border: '1px solid rgba(255,255,255,0.04)',
+      transition: 'all 0.3s ease',
     },
     avatar: (color) => ({
-      width: '48px',
-      height: '48px',
+      width: '44px',
+      height: '44px',
       borderRadius: '50%',
       background: `linear-gradient(135deg, ${color}, ${color}dd)`,
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      fontSize: '16px',
+      fontSize: '14px',
       fontWeight: 'bold',
       color: 'white',
-      flexShrink: 0,
     }),
-    reviewInfo: {
-      flex: 1,
-    },
-    reviewName: {
-      fontSize: '16px',
+    name: {
+      fontSize: '15px',
       fontWeight: '600',
       color: '#ffffff',
     },
-    reviewRole: {
-      fontSize: '13px',
+    role: {
+      fontSize: '12px',
       color: '#6b7280',
     },
-    reviewCountry: {
-      fontSize: '12px',
+    country: {
+      fontSize: '11px',
       color: '#4b5563',
-      marginTop: '2px',
     },
     rating: {
       display: 'flex',
       gap: '2px',
-      marginBottom: '10px',
+      margin: '8px 0',
     },
     star: (filled) => ({
       color: filled ? '#f59e0b' : '#374151',
-      fontSize: '16px',
+      fontSize: '14px',
     }),
-    quoteIcon: {
-      color: 'rgba(16,185,129,0.1)',
-      fontSize: '28px',
-      marginBottom: '8px',
-    },
-    reviewContent: {
-      fontSize: '0.95rem',
+    content: {
+      fontSize: '0.9rem',
       color: '#d1d5db',
-      lineHeight: 1.7,
-      marginBottom: '12px',
+      lineHeight: 1.6,
       fontStyle: 'italic',
+      margin: '8px 0',
     },
-    reviewFooter: {
+    footer: {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
       paddingTop: '12px',
-      borderTop: '1px solid rgba(255,255,255,0.05)',
+      borderTop: '1px solid rgba(255,255,255,0.04)',
     },
-    reviewDate: {
-      fontSize: '12px',
+    date: {
+      fontSize: '11px',
       color: '#4b5563',
     },
-    reviewActions: {
+    actions: {
       display: 'flex',
-      gap: '12px',
+      gap: '8px',
     },
     actionBtn: {
       background: 'none',
       border: 'none',
       color: '#4b5563',
       cursor: 'pointer',
-      transition: 'all 0.3s ease',
-      fontSize: '16px',
     },
   };
 
-  const mobileStyles = `
+  const mobileCSS = `
     @media (max-width: 768px) {
-      .reviews-grid {
-        grid-template-columns: 1fr !important;
-      }
-      .reviews-stats {
-        grid-template-columns: repeat(3, 1fr) !important;
-      }
-    }
-    @media (max-width: 480px) {
-      .reviews-stats {
-        grid-template-columns: 1fr !important;
-      }
+      .reviews-stats { grid-template-columns: repeat(3, 1fr) !important; }
+      .reviews-grid { grid-template-columns: 1fr !important; }
     }
   `;
 
   return (
-    <section id="reviews" style={styles.section}>
-      <div style={styles.bgGlow} />
-
+    <section id="reviews" style={styles.section} ref={ref}>
       <div style={styles.container}>
-        {/* ===== HEADER ===== */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          style={styles.header}
-        >
+        <div style={styles.header}>
           <div style={styles.badge}>Client Reviews</div>
           <h2 style={styles.title}>
             Trusted by <span style={styles.titleGradient}>Clients Worldwide</span>
           </h2>
-          <p style={styles.subtitle}>
-            Real feedback from real clients — 108+ five-star reviews and counting
-          </p>
-        </motion.div>
+        </div>
 
-        {/* ===== STATS ===== */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          style={styles.statsRow}
-          className="reviews-stats"
-        >
-          {stats.map((stat, index) => (
+        <div style={styles.statsRow} className="reviews-stats">
+          {stats.map((stat, i) => (
             <motion.div
-              key={index}
-              whileHover={{ 
-                y: -5,
-                background: 'rgba(16,185,129,0.03)',
-                borderColor: 'rgba(16,185,129,0.1)'
-              }}
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: i * 0.1 }}
               style={styles.statCard}
+              whileHover={{
+                background: 'rgba(16,185,129,0.02)',
+                borderColor: 'rgba(16,185,129,0.08)',
+              }}
             >
               <div style={styles.statNumber}>{stat.number}</div>
               <div style={styles.statLabel}>{stat.label}</div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
 
-        {/* ===== REVIEWS GRID ===== */}
-        <div style={styles.reviewsGrid} className="reviews-grid">
-          {reviews.map((review, index) => (
+        <div style={styles.grid} className="reviews-grid">
+          {reviews.map((review, i) => (
             <motion.div
-              key={review.id}
-              ref={sectionRef}
+              key={i}
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.08 }}
-              style={styles.reviewCard}
-              whileHover={{ 
-                y: -8,
-                borderColor: 'rgba(16,185,129,0.15)',
-                boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
+              transition={{ delay: i * 0.08 }}
+              style={styles.card}
+              whileHover={{
+                y: -4,
+                borderColor: 'rgba(16,185,129,0.1)',
               }}
             >
-              {/* Header */}
-              <div style={styles.reviewHeader}>
-                <div style={styles.avatar(review.color)}>
-                  {review.avatar}
-                </div>
-                <div style={styles.reviewInfo}>
-                  <div style={styles.reviewName}>{review.name}</div>
-                  <div style={styles.reviewRole}>{review.role}</div>
-                  <div style={styles.reviewCountry}>{review.country}</div>
+              <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+                <div style={styles.avatar(review.color)}>{review.avatar}</div>
+                <div>
+                  <div style={styles.name}>{review.name}</div>
+                  <div style={styles.role}>{review.role}</div>
+                  <div style={styles.country}>{review.country}</div>
                 </div>
               </div>
 
-              {/* Rating */}
               <div style={styles.rating}>
-                {[...Array(5)].map((_, i) => (
-                  <FiStar key={i} style={styles.star(i < review.rating)} />
+                {[...Array(5)].map((_, j) => (
+                  <FiStar key={j} style={styles.star(j < review.rating)} />
                 ))}
               </div>
 
-              {/* Quote */}
-              <FaQuoteLeft style={styles.quoteIcon} />
+              <FaQuoteLeft style={{ color: 'rgba(16,185,129,0.1)', fontSize: '20px' }} />
+              <p style={styles.content}>"{review.content}"</p>
 
-              {/* Content */}
-              <p style={styles.reviewContent}>"{review.content}"</p>
-
-              {/* Footer */}
-              <div style={styles.reviewFooter}>
-                <span style={styles.reviewDate}>
+              <div style={styles.footer}>
+                <span style={styles.date}>
                   <FiCalendar style={{ display: 'inline', marginRight: '4px' }} />
                   {review.date}
                 </span>
-                <div style={styles.reviewActions}>
-                  <motion.button
-                    whileHover={{ color: '#10b981' }}
-                    style={styles.actionBtn}
-                  >
-                    <FiHeart />
-                  </motion.button>
-                  <motion.button
-                    whileHover={{ color: '#10b981' }}
-                    style={styles.actionBtn}
-                  >
-                    <FiShare2 />
-                  </motion.button>
+                <div style={styles.actions}>
+                  <button style={styles.actionBtn}><FiHeart /></button>
+                  <button style={styles.actionBtn}><FiShare2 /></button>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
       </div>
-
-      <style>{mobileStyles}</style>
+      <style>{mobileCSS}</style>
     </section>
   );
 };

@@ -1,8 +1,25 @@
 "use client";
 
-import { FiMessageCircle, FiPhone, FiMapPin, FiSend, FiGithub, FiLinkedin, FiTwitter } from "react-icons/fi";
+import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { FiMail, FiMapPin, FiPhone, FiSend, FiGithub, FiLinkedin, FiTwitter } from "react-icons/fi";
 
 const Contact = () => {
+  const [inView, setInView] = useState(false);
+  const ref = useRef(null);
+  const [formStatus, setFormStatus] = useState(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setInView(true);
+      },
+      { threshold: 0.1 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
   const phoneNumber = "923014685576";
   const whatsappLink = `https://wa.me/${phoneNumber}`;
 
@@ -11,280 +28,249 @@ const Contact = () => {
     const form = e.target;
     const name = form.user_name.value;
     const message = form.message.value;
-    const encodedMessage = encodeURIComponent(`Hello! I'm ${name}. ${message}`);
-    window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
+    const encoded = encodeURIComponent(`Hello! I'm ${name}. ${message}`);
+    window.open(`https://wa.me/${phoneNumber}?text=${encoded}`, '_blank');
+    setFormStatus("success");
     form.reset();
+    setTimeout(() => setFormStatus(null), 5000);
   };
+
+  const contactInfo = [
+    { icon: FiMail, title: "Email", info: "suhaib@email.com", link: "mailto:suhaib@email.com", color: "#10b981" },
+    { icon: FiPhone, title: "WhatsApp", info: "+92 301 4685576", link: whatsappLink, color: "#25D366" },
+    { icon: FiMapPin, title: "Location", info: "Lahore, Pakistan", link: "#", color: "#3b82f6" },
+  ];
 
   const styles = {
     section: {
       padding: '80px 24px',
       background: '#0a0a0a',
-      minHeight: '100vh',
-      display: 'flex',
-      alignItems: 'center',
     },
     container: {
       maxWidth: '1280px',
       margin: '0 auto',
-      width: '100%',
     },
     header: {
       textAlign: 'center',
       marginBottom: '50px',
     },
+    badge: {
+      display: 'inline-block',
+      padding: '6px 16px',
+      background: 'rgba(16,185,129,0.08)',
+      border: '1px solid rgba(16,185,129,0.15)',
+      borderRadius: '9999px',
+      color: '#10b981',
+      fontSize: '12px',
+      fontFamily: 'monospace',
+      marginBottom: '16px',
+    },
     title: {
-      fontSize: '3rem',
+      fontSize: 'clamp(2rem, 4vw, 3rem)',
       fontWeight: 'bold',
       color: '#ffffff',
     },
     titleGradient: {
-      background: 'linear-gradient(to right, #25D366, #128C7E)',
+      background: 'linear-gradient(to right, #10b981, #8b5cf6)',
       WebkitBackgroundClip: 'text',
       WebkitTextFillColor: 'transparent',
       backgroundClip: 'text',
-    },
-    subtitle: {
-      color: '#6b7280',
-      fontSize: '1.1rem',
-      maxWidth: '600px',
-      margin: '0 auto',
     },
     grid: {
       display: 'grid',
       gridTemplateColumns: '1fr 1fr',
       gap: '50px',
     },
+    left: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '16px',
+    },
     infoCard: {
       display: 'flex',
       alignItems: 'center',
-      gap: '16px',
-      padding: '20px',
-      background: 'rgba(255,255,255,0.03)',
-      borderRadius: '16px',
-      border: '1px solid rgba(255,255,255,0.06)',
-      marginBottom: '16px',
+      gap: '14px',
+      padding: '16px 20px',
+      background: 'rgba(255,255,255,0.02)',
+      borderRadius: '12px',
+      border: '1px solid rgba(255,255,255,0.04)',
       textDecoration: 'none',
-      color: 'white',
-      transition: 'all 0.3s ease',
     },
     infoIcon: (color) => ({
-      width: '50px',
-      height: '50px',
+      width: '44px',
+      height: '44px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: '12px',
-      background: `${color}20`,
+      background: color + '15',
       color: color,
-      fontSize: '22px',
+      fontSize: '20px',
     }),
     infoTitle: {
-      fontSize: '13px',
+      fontSize: '12px',
       color: '#6b7280',
     },
     infoValue: {
-      fontSize: '16px',
+      fontSize: '15px',
       color: '#ffffff',
       fontWeight: 500,
     },
+    socialRow: {
+      display: 'flex',
+      gap: '12px',
+      marginTop: '8px',
+    },
+    socialLink: {
+      width: '44px',
+      height: '44px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: '12px',
+      background: 'rgba(255,255,255,0.02)',
+      border: '1px solid rgba(255,255,255,0.04)',
+      color: '#6b7280',
+    },
     formContainer: {
-      background: 'rgba(255,255,255,0.03)',
-      borderRadius: '20px',
-      border: '1px solid rgba(255,255,255,0.06)',
-      padding: '30px',
+      padding: '28px',
+      background: 'rgba(255,255,255,0.02)',
+      borderRadius: '16px',
+      border: '1px solid rgba(255,255,255,0.04)',
     },
     formTitle: {
-      fontSize: '1.3rem',
+      fontSize: '1.2rem',
+      fontWeight: 'bold',
       color: '#ffffff',
-      marginBottom: '8px',
     },
-    formSubtitle: {
+    formSub: {
+      fontSize: '0.9rem',
       color: '#6b7280',
-      marginBottom: '24px',
+      marginBottom: '20px',
     },
-    formInput: {
-      width: '100%',
-      padding: '12px 16px',
-      background: 'rgba(255,255,255,0.05)',
-      border: '1px solid rgba(255,255,255,0.1)',
-      borderRadius: '12px',
+    form: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '14px',
+    },
+    input: {
+      padding: '10px 14px',
+      background: 'rgba(255,255,255,0.03)',
+      border: '1px solid rgba(255,255,255,0.06)',
+      borderRadius: '10px',
       color: '#ffffff',
-      fontSize: '15px',
-      marginBottom: '16px',
+      fontSize: '14px',
       outline: 'none',
     },
-    formTextarea: {
-      width: '100%',
-      padding: '12px 16px',
-      background: 'rgba(255,255,255,0.05)',
-      border: '1px solid rgba(255,255,255,0.1)',
-      borderRadius: '12px',
+    textarea: {
+      padding: '10px 14px',
+      background: 'rgba(255,255,255,0.03)',
+      border: '1px solid rgba(255,255,255,0.06)',
+      borderRadius: '10px',
       color: '#ffffff',
-      fontSize: '15px',
-      minHeight: '120px',
+      fontSize: '14px',
+      minHeight: '100px',
       resize: 'vertical',
-      marginBottom: '16px',
       outline: 'none',
       fontFamily: 'inherit',
     },
     submitBtn: {
-      padding: '14px 32px',
-      background: 'linear-gradient(to right, #25D366, #128C7E)',
+      padding: '12px',
+      background: 'linear-gradient(to right, #10b981, #059669)',
       border: 'none',
       borderRadius: '9999px',
       color: 'white',
       fontWeight: 'bold',
-      fontSize: '16px',
+      fontSize: '15px',
       cursor: 'pointer',
-      width: '100%',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       gap: '8px',
     },
-    whatsappButton: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: '12px',
-      padding: '16px',
-      background: 'rgba(37,211,102,0.1)',
-      border: '1px solid rgba(37,211,102,0.3)',
-      borderRadius: '12px',
-      color: '#25D366',
-      textDecoration: 'none',
-      marginTop: '16px',
-      fontWeight: 500,
-    },
-    socialGrid: {
-      display: 'flex',
-      gap: '12px',
-      marginTop: '16px',
-    },
-    socialLink: {
-      width: '48px',
-      height: '48px',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: '12px',
-      background: 'rgba(255,255,255,0.03)',
-      border: '1px solid rgba(255,255,255,0.06)',
-      color: '#6b7280',
-      transition: 'all 0.3s ease',
-      textDecoration: 'none',
+    success: {
+      padding: '12px',
+      background: 'rgba(16,185,129,0.08)',
+      border: '1px solid rgba(16,185,129,0.15)',
+      borderRadius: '10px',
+      color: '#10b981',
+      textAlign: 'center',
     },
   };
 
-  const mobileStyles = `
+  const mobileCSS = `
     @media (max-width: 768px) {
-      .contact-grid {
-        grid-template-columns: 1fr !important;
-      }
+      .contact-grid { grid-template-columns: 1fr !important; }
     }
   `;
 
   return (
-    <section id="contact" style={styles.section}>
+    <section id="contact" style={styles.section} ref={ref}>
       <div style={styles.container}>
-        {/* ===== HEADER ===== */}
         <div style={styles.header}>
+          <div style={styles.badge}>Get In Touch</div>
           <h2 style={styles.title}>
             Let's <span style={styles.titleGradient}>Connect</span>
           </h2>
-          <p style={styles.subtitle}>
-            Have a project in mind? Send me a message on WhatsApp!
-          </p>
         </div>
 
-        {/* ===== CONTENT ===== */}
         <div style={styles.grid} className="contact-grid">
-          {/* ===== LEFT ===== */}
-          <div>
-            {/* WhatsApp */}
-            <a href={whatsappLink} target="_blank" rel="noopener" style={styles.infoCard}>
-              <div style={styles.infoIcon("#25D366")}>
-                <FiMessageCircle size={22} />
-              </div>
-              <div>
-                <div style={styles.infoTitle}>WhatsApp</div>
-                <div style={styles.infoValue}>+92 301 4685576</div>
-              </div>
-            </a>
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            style={styles.left}
+          >
+            {contactInfo.map((item, i) => {
+              const Icon = item.icon;
+              return (
+                <a key={i} href={item.link} target={item.title === "WhatsApp" ? "_blank" : ""} rel="noopener" style={styles.infoCard}>
+                  <div style={styles.infoIcon(item.color)}><Icon /></div>
+                  <div>
+                    <div style={styles.infoTitle}>{item.title}</div>
+                    <div style={styles.infoValue}>{item.info}</div>
+                  </div>
+                </a>
+              );
+            })}
 
-            {/* Phone */}
-            <a href="tel:923014685576" style={styles.infoCard}>
-              <div style={styles.infoIcon("#ec4899")}>
-                <FiPhone size={22} />
-              </div>
-              <div>
-                <div style={styles.infoTitle}>Call</div>
-                <div style={styles.infoValue}>+92 301 4685576</div>
-              </div>
-            </a>
-
-            {/* Location */}
-            <div style={styles.infoCard}>
-              <div style={styles.infoIcon("#3b82f6")}>
-                <FiMapPin size={22} />
-              </div>
-              <div>
-                <div style={styles.infoTitle}>Location</div>
-                <div style={styles.infoValue}>Lahore, Pakistan</div>
-              </div>
+            <div style={styles.socialRow}>
+              {[
+                { icon: FiGithub, href: "https://github.com", color: "#ffffff" },
+                { icon: FiLinkedin, href: "https://www.linkedin.com/in/suhaib-ali-10964632a/", color: "#0A66C2" },
+              ].map((social, i) => (
+                <a key={i} href={social.href} target="_blank" rel="noopener" style={styles.socialLink}>
+                  <social.icon size={20} />
+                </a>
+              ))}
             </div>
+          </motion.div>
 
-            {/* WhatsApp Chat Button */}
-            <a href={whatsappLink} target="_blank" rel="noopener" style={styles.whatsappButton}>
-              <FiMessageCircle size={24} />
-              <span>Chat Now on WhatsApp</span>
-            </a>
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            style={styles.formContainer}
+          >
+            <h3 style={styles.formTitle}>Send a Message</h3>
+            <p style={styles.formSub}>I'll respond within 24 hours</p>
 
-            {/* Social Links */}
-            <div style={styles.socialGrid}>
-              <a href="https://github.com" target="_blank" rel="noopener" style={styles.socialLink}>
-                <FiGithub size={20} />
-              </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener" style={styles.socialLink}>
-                <FiLinkedin size={20} />
-              </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener" style={styles.socialLink}>
-                <FiTwitter size={20} />
-              </a>
-            </div>
-          </div>
-
-          {/* ===== RIGHT - Form ===== */}
-          <div style={styles.formContainer}>
-            <h3 style={styles.formTitle}>Send via WhatsApp</h3>
-            <p style={styles.formSubtitle}>Fill in the form and it will open WhatsApp with your message</p>
-
-            <form onSubmit={handleSubmit}>
-              <input
-                type="text"
-                name="user_name"
-                placeholder="Your Name"
-                style={styles.formInput}
-                required
-              />
-              <textarea
-                name="message"
-                placeholder="Tell me about your project..."
-                style={styles.formTextarea}
-                required
-              />
+            <form onSubmit={handleSubmit} style={styles.form}>
+              <input type="text" name="user_name" placeholder="Your Name" style={styles.input} required />
+              <textarea name="message" placeholder="Tell me about your project..." style={styles.textarea} required />
+              {formStatus === "success" && (
+                <div style={styles.success}>✅ Message sent! I'll get back to you soon.</div>
+              )}
               <button type="submit" style={styles.submitBtn}>
-                Send on WhatsApp <FiMessageCircle size={18} />
+                Send on WhatsApp <FiSend />
               </button>
             </form>
-          </div>
+          </motion.div>
         </div>
       </div>
-
-      <style>{mobileStyles}</style>
+      <style>{mobileCSS}</style>
     </section>
   );
 };
- 
+
 export default Contact;
