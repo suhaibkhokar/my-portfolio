@@ -37,9 +37,9 @@ const Hero = () => {
 
   const pipeline = [
     { icon: FiCode, name: "Next.js", desc: "Frontend + Dashboard" },
-    { icon: FiServer, name: "FastAPI", desc: "API + Scraper workers" },
-    { icon: FiDatabase, name: "PostgreSQL + Redis", desc: "Storage + Queues" },
-    { icon: FiZap, name: "Telegram / Email", desc: "Instant alerts" },
+{ icon: FiCode, name: "React JS / Next.js", desc: "Modern Web Applications" },
+{ icon: FiSmartphone, name: "React Native", desc: "Cross Platform Mobile Apps" },
+{ icon: FiLayers, name: "Tailwind CSS", desc: "Responsive UI + Animations" },
   ];
 
   const styles = {
