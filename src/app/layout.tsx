@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -31,15 +30,7 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
-        {children}
-        <Script
-          src="https://cdn.zanderio.ai/widget/loader.js"
-          data-id="wdg_w229gOSF7KUHzJeNPEeKsL0K"
-          strategy="afterInteractive"
-          defer
-        />
-      </body>
+      <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
 }
